@@ -5,6 +5,7 @@ services:
       dockerfile: php.Dockerfile
       context: .
     restart: always
+    container_name: turbo
     volumes:
       - "./html/:/var/www/html/"
       - "./config/php/php.ini:/usr/local/etc/php/php.ini"
@@ -12,7 +13,7 @@ services:
       - "./logs/apache2:/var/log/apache2/"
       - "./config/apache2/000-default.conf:/etc/apache2/sites-available/000-default.conf"
     ports:
-      - "84:80"
+      - "80:80"
     extra_hosts:
       - "host.docker.internal:host-gateway"
       - "laravel-test.local:127.0.0.1"
