@@ -1,12 +1,10 @@
 <turbo-frame id="@domid($task)">
-	<div class="mb-2"
-		x-data="{open:true, cancel(){$refs.cancelForm.requestSubmit()}}"
-		@click.outside="cancel()">
+	<div class="mb-2">
 		<form class="w-full " method="put" action="{{route('tasks.update', ['task' => $task->id])}}" target="_top">
 			@csrf
 			<div class="flex">
 				<div class="w-2/3">
-					# <input x-trap="open" class="outline-0  border-b border-black" name="task" type="text" value="{{$task->task}}">
+					# <input class="outline-0  border-b border-black" name="task" type="text" value="{{$task->task}}">
 				</div>
 				<x-common.img-submit :src="asset('img/save.svg')" :id="'updateTask_'.$task->id"></x-common.img-submit>
 			</div>
