@@ -44,20 +44,12 @@ class TaskController extends Controller
         $task->task = $validated['task'];
         $task->save();
 
-        return response()->turboStream([
-            response()->turboStream()
-                ->target('createTask')
-                ->action('replace')
-                ->view('tasks._create'),
-            response()->turboStream()
-                ->target('showTask')
-                ->action('append')
-                ->view('tasks._show', ['task' => $task]),
-            response()->turboStream()
-                ->target('taskCount')
-                ->action('replace')
-                ->view('components.tasks._count', ['count' => Task::count(), 'attributes' => new ComponentAttributeBag()]),
-        ]);
+        return response()->turboStreamView('tasks.turbo._created',
+            [
+                'task' => $task,
+                'count' => Task::count(),
+            ]
+        );
 
     }
 
@@ -115,14 +107,11 @@ class TaskController extends Controller
         $task = Task::find($id);
         $task->delete();
 
-        return response()->turboStream([
-            response()->turboStream()->remove($task),
-            response()->turboStream()
-                ->target('taskCount')
-                ->action('replace')
-                ->view('components.tasks._count', ['count' => Task::count(), 'attributes' => new ComponentAttributeBag()]),
+        return response()->turboStreamView('tasks.turbo._destroyed',
+        [
+            'task' => $task,
+            'count' => Task::count(),
         ]);
-
     }
 
 }
