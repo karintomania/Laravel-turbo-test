@@ -1,16 +1,28 @@
-# Docker for Laravel
+# Laravel Turbo Test
 
-edit host
+## Clone the project 
 ```
-laravel-test.local
+git clone https://github.com/karintomania/Laravel-turbo-test.git && cd Laravel-turbo-test.git
 ```
+
+## Run Docker container
+``` 
+docker-compose up -d
+```
+
 run command inside the container
 ```
-composer create-project laravel/laravel .
+cd /var/www/html
 composer install
+touch database/database.sqlite
+cp .env.example /.env
+php artisan migrate
+php artisan key:generate
 ```
 
-http://laravel-test.local:81/
 
-touch database/database.sqlite
-php artisan migrate
+
+The test project is available on the URL below:
+http://localhost/
+
+
